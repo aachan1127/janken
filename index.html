@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>おみくじ</title>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <main>
+
+    <section class="title_section">
+      <h1>おみくじ</h1>
+    </section>
+
+    <section class="result_section" id="result">
+      <p id="result">結果は？？</p>
+    </section>
+
+    <section class="button_section">
+      <button id="button">おみくじをひく</button>
+    </section>
+
+  </main>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+  // alert('おはよう');
+  // コンソールは検証画面には表示される
+  // console.log('おはよう');
+
+// 
+  // const number1 = 100;
+  // const number2 = 200;
+  // alert(number1+number2);
+  // console.log(number1+number2);
+
+
+  // 記号はエスケープ処理すると絵として表示される
+  // 行の最後に；をつける癖をつけるとPHPのとき楽
+
+  // const text1 ="G's";
+  // const text2 = "アカデミー";
+  // alert(text1+text2);
+  // console.log(text1+text2);
+
+// 練習０　０−４
+// const randomnumber=Math.floor(Math.random()* 5);
+// console.log(randomnumber);
+
+// 練習１　０−９
+// const randomnumber1=Math.floor(Math.random()* 10);
+// console.log(randomnumber1);
+
+// 練習２　１−９
+  // まず最初に０−８を作って、１をたす
+// const randomnumber2=Math.floor(Math.random()* 9)+1;
+// console.log(randomnumber2);
+
+// 練習３　５−１０
+  // 最初に０−５を作って、５を足す
+// const randomnumber3=Math.floor(Math.random()* 6)+5;
+// console.log(randomnumber3);
+
+// 練習４　５０−９９
+  // 
+// const randomnumber4=Math.floor(Math.random()* (99-50) + 1) + 50;
+// console.log(randomnumber4);
+
+// 一番最後→最小値、max-minは表示させたい数数
+
+
+// 
+
+
+$(`button`).on(`click`, function () {
+
+const min = 0;
+const max = 4;
+
+const randomnumber5=Math.floor(Math.random()* (max-min+ 1) )+ min;
+console.log(randomnumber5);
+
+
+  if (randomnumber5 === 0){
+    $("#result").text('大吉');
+}
+
+else if(randomnumber5 === 1){
+  $("#result").text('中吉');
+}
+else if(randomnumber5 === 2){
+  $("#result").text('小吉');
+}
+else if(randomnumber5 === 3){
+  $("#result").text('凶');
+}
+else if(randomnumber5 === 4){
+  $("#result").text('大凶');
+}
+else{
+  alert("お前はもう死んでいる");
+}
+});
+
+
+
+
+
+</script>
+
+</body>
+
+</html>
