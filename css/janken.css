@@ -20,17 +20,8 @@ section {
   justify-content: center;
   align-items: center;
 }
-/* 
-.yarujyan {
-  height: 800px;
-  width: 800px;
-} 
- */
 
-
-
-
- /* .body {
-  height: 800px;
-  width: 800px;
-}  */
+#result_tuuchan {
+  width: 300px;
+  height: 300px;
+}

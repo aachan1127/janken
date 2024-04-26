@@ -11,7 +11,7 @@
 
 <body>
   <main>
-    
+
     <section>
       <h1>じゃんけん</h1>
     </section>
@@ -19,7 +19,7 @@
     <div>
       <p>コンピューターに勝ってください</p>
       <button id="start"><img src="" alt="start"></button><!--スタート-->
-      
+
     </div>
 
 
@@ -38,349 +38,334 @@
     </section>
 
 
-<!-- 勝った時の画像 -->
-    
-    <section id="daikiti">
-      <div class="yarujyan_wrap"> 
-        <div class="yarujyan">
-        <img id="resultImage" src="" alt="Result Image">
-        </div>
+    <!-- 勝った時の画像 -->
+
+    <section id="yarujan">
+
+      <li><img id="result_yarujan" src="" alt="yarujan_img"></li>
+      <div class="tuuchan01_wrap">
+        <li><img id="result_tuuchan" src="" alt="tuuchan_01_img"></li>
       </div>
-      </section>
-   
+
+    </section>
+
 
     <section>
-      <p id="Score">勝った回数：0</p><!-- cauntの値を表示する要素 -->
+      <p id="Score">勝った回数:0</p><!-- cauntの値を表示する要素 -->
       <!-- <p id="charenge_count">合計の試合数：0</p> charengeの値を表示する要素 -->
     </section>
 
-    
+
 
   </main>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script> 
+  <script>
 
 
 
 
-// 勝った回数のカウントを入れる変数
-let caunt = 0;
+    // 勝った回数のカウントを入れる変数
+    let caunt = 0;
 
 
-// 試合数の合計数を入れる変数
-let charenge = 0;
-
-
-
-// ーーーーーーーーーーーーーーーーーーーーー
-
-
-// ぐー押したとき
-$(`#guu`).on(`click`, function () {
-  // その変数に１づつ加算される
-     // 試合数の計測
-charenge = (charenge+1);
-console.log(charenge);
-
-// idコンピューターに表示されている文字を取得
-document.querySelector("#computer").textContent;
-console.log(document.querySelector("#computer").textContent);
-
-// 取得した文字を入れる変数
-let computer_1 = document.querySelector("#computer").textContent;
-console.log(computer_1);
-
-
-// 加算した数をコンソールかhtmlに結果を表示する
-// console.log(caunt);
-
-
-// const puls_caunt = (result+1);
-// console.log(puls_caunt);
+    // 試合数の合計数を入れる変数
+    let charenge = 0;
 
 
 
-console.log("ぐー");
+    // ーーーーーーーーーーーーーーーーーーーーー
 
-const min = 1;
-const max = 3;
 
-// const randomnumber=Math.floor(Math.random()* (max-min+ 1) )+ min;
-//   console.log(randomnumber);
+    // ぐー押したとき
+    $(`#guu`).on(`click`, function () {
+      // 試合数の計測
+      charenge = (charenge + 1);
+      // 取得した文字を入れる変数
+      let computer_1 = document.querySelector("#computer").textContent;
 
-      if (computer_1 === "ぐー"){
+      if (computer_1 === "ぐー") {
         // $("#computer").text('ぐー');
         $("#result").text('あいこ');
-    }
+      }
 
-    else if(computer_1 === "ちょき"){
-      // $("#computer").text('ちょき');
-      $("#result").text('勝ち');
-      console.log("#result");
-      // 勝ったときに１＋されるアクション
-      caunt = (caunt+1);
-      console.log(caunt);
-      // alert("勝ちました");
+      else if (computer_1 === "ちょき") {
+        // $("#computer").text('ちょき');
+        $("#result").text('勝ち');
+        // 勝ったときに１＋されるアクション
+        caunt = (caunt + 1);
+        console.log(caunt);
 
-    }
-
-
-    else if(computer_1 === "パー"){
-      // $("#computer").text('パー');
-      $("#result").text('負け');
-      //負けた時に−１されるアクション
-      caunt = (caunt-1);
-      console.log(caunt);
-      // alert("負けました");
-
-      // cauntが０以下にならないようにする処理
-      caunt = Math.max(0, caunt);
-      console.log(caunt);
-    }
-
+      }
+      else if (computer_1 === "パー") {
+        // $("#computer").text('パー');
+        $("#result").text('負け');
+        //負けた時に−１されるアクション
+        caunt = (caunt - 1);
+        // cauntが０以下にならないようにする処理
+        caunt = Math.max(0, caunt);
+      }
+    })
     // 勝った回数が5回になったらアラートを表示
-    if (caunt === 5) {
+    $(`#guu`).on(`click`, function btn() {
+      if (caunt === 2) {
         alert("５回勝ちました!");
-    }
-    
-    // 5回勝った時に画像が表示される
-  function displayResultImage(caunt) {
-  const imageSection = document.querySelector("#daikiti");
-  }
-  if (caunt === 5) {
-    resultImage.src = '/images/yarujyan.png'; // 勝った時の画像のパス
-  }
+      }
 
+      //これいらんやった
+      // function display_result_yarujan() {
+      //   const imageSection = document.querySelector("#yarujan");
+      // }
 
-  const randomnumber=Math.floor(Math.random()* (max-min+ 1) )+ min;
-  console.log(randomnumber);
+      if (caunt === 2) {
+        result_yarujan.src = 'images/yarujan.png'; // 勝った時の画像のパス
+      }
 
-if (randomnumber === 1){
-  $("#computer").text('ぐー');
-}
-if (randomnumber === 2){
-  $("#computer").text('ちょき');
-}
-if (randomnumber === 3){
-  $("#computer").text('パー');
-}
-
-
-
-}
-);
-
-
-// ちょき押したとき
-$(`#cyoki`).on(`click`, function () {
-
-     // 試合数の計測
-     charenge = (charenge+1);
-console.log(charenge);
-
-
-
-// idコンピューターに表示されている文字を取得
-document.querySelector("#computer").textContent;
-console.log(document.querySelector("#computer").textContent);
-
-// 取得した文字を入れる変数
-const computer_1 = document.querySelector("#computer").textContent;
-console.log(computer_1);
-
-
-console.log("ちょき");
-  const min = 1;
-  const max = 3;
+      if (caunt === 10) {
+        result_tuuchan.src = 'images/tuuchan01.png';//10回買った時の画像を表示
+      }
 
 
 
 
-  // const randomnumber=Math.floor(Math.random()* (max-min+ 1) )+ min;
-  // console.log(randomnumber);
 
 
-      if (computer_1 === "ぐー"){
+
+      const min = 1;
+      const max = 3;
+
+      const randomnumber = Math.floor(Math.random() * (max - min + 1)) + min;
+
+      if (randomnumber === 1) {
+        $("#computer").text('ぐー');
+      }
+      if (randomnumber === 2) {
+        $("#computer").text('ちょき');
+      }
+      if (randomnumber === 3) {
+        $("#computer").text('パー');
+      }
+
+
+    });
+
+
+
+    // ちょき押したとき
+    $(`#cyoki`).on(`click`, function () {
+      // 試合数の計測
+
+      charenge = (charenge + 1);
+      // idコンピューターに表示されている文字を取得
+      document.querySelector("#computer").textContent;
+      // 取得した文字を入れる変数
+      const computer_1 = document.querySelector("#computer").textContent;
+
+      const min = 1;
+      const max = 3;
+
+
+      // const randomnumber=Math.floor(Math.random()* (max-min+ 1) )+ min;
+      // console.log(randomnumber);
+
+
+      if (computer_1 === "ぐー") {
         // $("#computer").text('ぐー');
         $("#result").text('負け');
         //負けた時に−１されるアクション
-      caunt = (caunt-1);
-      console.log(caunt);
-      // alert("負けました")
+        caunt = (caunt - 1);
+        console.log(caunt);
+        // alert("負けました")
 
-      // cauntが０以下にならないようにする処理
-      caunt = Math.max(0, caunt);
-      console.log(caunt);
-    }
+        // cauntが０以下にならないようにする処理
+        caunt = Math.max(0, caunt);
+        console.log(caunt);
+      }
 
-    else if(computer_1 === "ちょき"){
-      // $("#computer").text('ちょき');
-      $("#result").text('あいこ');
-    }
-    else if(computer_1 === "パー"){
-      // $("#computer").text('パー');
-      $("#result").text('勝ち');
-      // 勝ったときに１＋されるアクション
-      caunt = (caunt+1);
-      console.log(caunt);
-      // alert("勝ちました")
-    }
-    // 勝った回数が5回になったらアラートを表示
-    if (caunt === 5) {
+      else if (computer_1 === "ちょき") {
+        // $("#computer").text('ちょき');
+        $("#result").text('あいこ');
+      }
+      else if (computer_1 === "パー") {
+        // $("#computer").text('パー');
+        $("#result").text('勝ち');
+        // 勝ったときに１＋されるアクション
+        caunt = (caunt + 1);
+        console.log(caunt);
+        // alert("勝ちました")
+      }
+
+      // 勝った回数が5回になったらアラートを表示
+      if (caunt === 2) {
         alert("５回勝ちました!");
+      }
+      // これいらんやった
+      //5回勝った時に画像が表示される
+      // function display_result_yarujan() {
+      //   const yarujan = document.querySelector("#yarujan");
+
+      if (caunt === 2) {
+        result_yarujan.src = 'images/yarujan.png'; //５勝った時の画像を表示
+      }
+      else if (caunt === 10) {
+        result_tuuchan.src = 'images/tuuchan01.png';//10回買った時の画像を表示
+      }
+
+
+
+
+
+      const randomnumber = Math.floor(Math.random() * (max - min + 1)) + min;
+      console.log(randomnumber);
+
+      if (randomnumber === 1) {
+        $("#computer").text('ぐー');
+      }
+      if (randomnumber === 2) {
+        $("#computer").text('ちょき');
+      }
+      if (randomnumber === 3) {
+        $("#computer").text('パー');
+      }
+
+
+
     }
-
-     //5回勝った時に画像が表示される
-  function displayResultImage(caunt) {
-  const imageSection = document.querySelector("#daikiti");
-  }
-  if (caunt === 5) {
-    resultImage.src = '/images/yarujyan.png'; // 勝った時の画像のパス
-  }
-
-  const randomnumber=Math.floor(Math.random()* (max-min+ 1) )+ min;
-  console.log(randomnumber);
-
-  if (randomnumber === 1){
-  $("#computer").text('ぐー');
-}
-if (randomnumber === 2){
-  $("#computer").text('ちょき');
-}
-if (randomnumber === 3){
-  $("#computer").text('パー');
-}
-
-
-}
-);
-
-// パー押したとき
-
-$(`#paa`).on(`click`, function () {
-
-
-     // 試合数の計測
-     charenge = (charenge+1);
-console.log(charenge);
-
-
-// idコンピューターに表示されている文字を取得
-document.querySelector("#computer").textContent;
-console.log(document.querySelector("#computer").textContent);
-
-// 取得した文字を入れる変数
-let computer_1 = document.querySelector("#computer").textContent;
-console.log(computer_1);
+    );
 
 
 
-console.log("パー");
-  const min = 1;
-  const max = 3;
 
-  // const randomnumber=Math.floor(Math.random()* (max-min+ 1) )+ min;
-  // // console.log(randomnumber);
+    // パー押したとき
+
+    $(`#paa`).on(`click`, function () {
 
 
-      if (computer_1 === "ぐー"){
+      // 試合数の計測
+      charenge = (charenge + 1);
+      console.log(charenge);
+
+
+      // idコンピューターに表示されている文字を取得
+      document.querySelector("#computer").textContent;
+      console.log(document.querySelector("#computer").textContent);
+
+      // 取得した文字を入れる変数
+      let computer_1 = document.querySelector("#computer").textContent;
+      console.log(computer_1);
+
+
+
+      console.log("パー");
+      const min = 1;
+      const max = 3;
+
+      // const randomnumber=Math.floor(Math.random()* (max-min+ 1) )+ min;
+      // // console.log(randomnumber);
+
+
+      if (computer_1 === "ぐー") {
         // $("#computer").text('ぐー');
         $("#result").text('勝ち');
-      // 勝ったときに１＋されるアクション
-      caunt = (caunt+1);
-      console.log(caunt);
-      // alert("勝ちました")
-    }
+        // 勝ったときに１＋されるアクション
+        caunt = (caunt + 1);
+        console.log(caunt);
+        // alert("勝ちました")
+      }
 
-    else if(computer_1 === "ちょき"){
-      // $("#computer").text('ちょき');
-      $("#result").text('負け');
-      //負けた時に−１されるアクション
-      caunt = (caunt-1);
-      console.log(caunt);
-      // alert("負けました")
+      else if (computer_1 === "ちょき") {
+        // $("#computer").text('ちょき');
+        $("#result").text('負け');
+        //負けた時に−１されるアクション
+        caunt = (caunt - 1);
+        console.log(caunt);
+        // alert("負けました")
 
-      // cauntが０以下にならないようにする処理
-      caunt = Math.max(0, caunt);
-      console.log(caunt);
-    }
-    else if(computer_1 === "パー"){
-      // $("#computer").text('パー');
-      $("#result").text('あいこ');
-    }
+        // cauntが０以下にならないようにする処理
+        caunt = Math.max(0, caunt);
+        console.log(caunt);
+      }
+      else if (computer_1 === "パー") {
+        // $("#computer").text('パー');
+        $("#result").text('あいこ');
+      }
 
 
-    // 勝った回数が5回になったらアラートを表示
-    if (caunt === 5) {
+      // 勝った回数が5回になったらアラートを表示
+      if (caunt === 5) {
         alert("５回勝ちました!");
+      }
+
+      // 5回勝った時に画像が表示される
+      function display_result_yarujan(caunt) {
+        const imageSection = document.querySelector("#yarujan");
+      }
+      if (caunt === 5) {
+        result_yarujan.src = 'images/yarujan.png'; // 勝った時の画像のパス
+      }
+
+      if (caunt === 10) {
+        result_tuuchan.src = 'images/tuuchan01.png';//10回買った時の画像を表示
+      }
+
+
+
+      const randomnumber = Math.floor(Math.random() * (max - min + 1)) + min;
+      console.log(randomnumber);
+
+      if (randomnumber === 1) {
+        $("#computer").text('ぐー');
+      }
+      if (randomnumber === 2) {
+        $("#computer").text('ちょき');
+      }
+      if (randomnumber === 3) {
+        $("#computer").text('パー');
+      }
+
+
     }
+    );
 
-     // 5回勝った時に画像が表示される
-  function displayResultImage(caunt) {
-  const imageSection = document.querySelector("#imageSection");
-  }
-  if (caunt === 5) {
-    resultImage.src = 'images/yarujyan.png'; // 勝った時の画像のパス
-  }
- 
+    // cauntの値を表示する要素を取得する
+    const Score = document.querySelector("#Score");
 
-  const randomnumber=Math.floor(Math.random()* (max-min+ 1) )+ min;
-  console.log(randomnumber);
+    // cauntの初期値を表示する
+    Score.textContent = `勝った回数：${caunt}`;
 
-  if (randomnumber === 1){
-  $("#computer").text('ぐー');
-}
-if (randomnumber === 2){
-  $("#computer").text('ちょき');
-}
-if (randomnumber === 3){
-  $("#computer").text('パー');
-}
-
-
-}
-);
-
-// cauntの値を表示する要素を取得する
-const Score = document.querySelector("#Score");
-
-// cauntの初期値を表示する
-Score.textContent = `勝った回数：${caunt}`;
-
-// cauntの値が更新されるたびに、その値を表示する
-function updateScore(newcaunt) {
-  Score.textContent = `勝った回数：${newcaunt}`;
-}
-setInterval(() => {
-      caunt; 
+    // cauntの値が更新されるたびに、その値を表示する
+    function updateScore(newcaunt) {
+      Score.textContent = `勝った回数：${newcaunt}`;
+    }
+    setInterval(() => {
+      caunt;
       updateScore(caunt); //勝ったカウントを更新させるアクション
     }, 1000); // 1秒ごとに更新してみる
 
 
     // ----------------
 
-// // cauntの値を表示する要素を取得する
-// const Score = document.querySelector("#charenge_count");
+    // // cauntの値を表示する要素を取得する
+    // const Score = document.querySelector("#charenge_count");
 
-// // cauntの初期値を表示する
-// Score.textContent = `勝った回数：${charenge}`;
+    // // cauntの初期値を表示する
+    // Score.textContent = `勝った回数：${charenge}`;
 
-// // cauntの値が更新されるたびに、その値を表示する
-// function updateScore(newcharenge) {
-//   Score.textContent = `勝った回数：${newcharenge}`;
-// }
-// setInterval(() => {
-//       charenge; 
-//       updateCharenge_count(charenge); //合計の試合数を更新させるアクション
-//     }, 1000); // 1秒ごとに更新してみる
+    // // cauntの値が更新されるたびに、その値を表示する
+    // function updateScore(newcharenge) {
+    //   Score.textContent = `勝った回数：${newcharenge}`;
+    // }
+    // setInterval(() => {
+    //       charenge;
+    //       updateCharenge_count(charenge); //合計の試合数を更新させるアクション
+    //     }, 1000); // 1秒ごとに更新してみる
 
 
 
 
 
     // const randomnumber=Math.floor(Math.random()* (max-min+ 1) )+ min;
-  // console.log(randomnumber);
+    // console.log(randomnumber);
 
   </script>
 
@@ -388,4 +373,3 @@ setInterval(() => {
 </body>
 
 </html>
-
