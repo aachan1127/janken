@@ -9,184 +9,249 @@
   <link rel="stylesheet" href="css/janken.css">
 </head>
 
-<body>
-  <main>
+<section>
+  <h1>じゃんけん</h1>
+</section>
 
-    <section>
-      <h1>じゃんけん</h1>
-    </section>
+<section>
+  <div class="start_display">
+    <p>30秒以内に20回勝って！！！</p>
+    <button id="start">スタート！</button><!--スタートボタン-->
 
-    <div>
-      <p>コンピューターに勝ってください</p>
-      <button id="start"><img src="" alt="start"></button><!--スタート-->
+  </div>
+</section>
 
-    </div>
-
-
-    <section>
-      <p id="computer">ちょき</p>
-    </section>
-
-    <section>
-      <p id="result">勝敗は？？</p>
-    </section>
-
-    <section>
-      <button id="guu"><img src="images/guu.png" alt="guu"></button> <!--ぐー-->
-      <button id="cyoki"><img src="images/cyoki.png" alt="choki"></button>　<!--ちょき-->
-      <button id="paa"><img src="images/paa.png" alt="paa"></button>　<!--パー-->
-    </section>
+<main class="janken">
 
 
-    <!-- 勝った時の画像 -->
-
-    <section id="yarujan">
-
-      <li><img id="result_yarujan" src="" alt="yarujan_img"></li>
-      <div class="tuuchan01_wrap">
-        <li><img id="result_tuuchan" src="" alt="tuuchan_01_img"></li>
-      </div>
-
-    </section>
+  <!-- やるじゃんの画像 -->
+  <div id="yarujan">
+    <img id="result_yarujan" src="">
+  </div>
 
 
-    <section>
-      <p id="Score">勝った回数:0</p><!-- cauntの値を表示する要素 -->
-      <!-- <p id="charenge_count">合計の試合数：0</p> charengeの値を表示する要素 -->
-    </section>
+  <section>
+    <P>コンピューターの手:</P>
+    <p id="computer">ちょき</p>
+  </section>
+
+  <section>
+    <p id="result">勝敗は？？</p>
+  </section>
+
+  <!-- つーちゃんの画像 -->
+  <div id="tuuchan_box">
+    <img class="tuuchan">
+  </div>
+
+  <div class="Score_caunt">
+    <p id="Score">勝った回数:0</p><!-- cauntの値を表示する要素 -->
+    <p id="timer"></p><!--残り時間の計測を表示する要素-->
+  </div>
+
+  <section>
+    <ul><img id="guu" src="images/guu.png" alt="guu"></ul> <!--ぐー-->
+    <ul><img id="cyoki" src="images/cyoki.png" alt="choki"></ul><!--ちょき-->
+    <ul><img id="paa" src="images/paa.png" alt="paa"></ul><!--パー-->
+  </section>
 
 
 
-  </main>
+</main>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script>
-    // 勝った回数のカウントを入れる変数
-    let caunt = 0;
-    // 試合数の合計数を入れる変数
-    let charenge = 0;
-    // 取得した文字を入れる変数
-    let computer_1 = $("computer_1").text();
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+
+  // スタートボタン押した時におこるアクション
+  $("#start").on('click', function () {
+    $('.start_display').hide();//div class="start_display"を非表示にする(スタート画面)
+    $('.janken').show();//main class="janken"を表示(じゃんけん画面)
+
+
+    // カウントダウン処理----------------
+    const totalTime = 30000;//30秒
+    const oldTime = Date.now();
+
+    const timer = setInterval(() => {
+      const currentTime = Date.now();
+      const diff = currentTime - oldTime;//差分を求める
+      const remainMSec = totalTime - diff;//残りのミリ数を計算
+      const remainSec = Math.ceil(remainMSec / 1000);//ミリ秒を整数の秒数に変換する
+
+      let label = `残り${remainSec}秒`;
+
+      if (remainMSec <= 0) { //0秒以下になったら
+        clearInterval(timer); //タイマーを終了する
+        label = `終了`; //タイマー終了の文字を表示
+      }
+
+      //画面に表示する
+      $('#timer').text(label);
+    }, 1000);
+  });
+  //-----------------------------ここまでカウントダウン処理
+
+  // 勝った回数のカウントを入れる変数
+  let caunt = 0;
+  console.log(caunt);
+  // 試合数の合計数を入れる変数
+  let charenge = 0;
+
+  // cauntの初期値を表示する
+  Score.textContent = `勝った回数：${caunt}`;
+
+  // cauntの値が更新されるたびに、その値を表示する
+  function updateScore(newcaunt) {
+    Score.textContent = `勝った回数：${newcaunt}`;
+  }
+  setInterval(() => {
+    caunt;
+    updateScore(caunt); //勝ったカウントを更新させるアクション
+  }, 100); // 0.1秒ごとに更新してみる
+
+
+
+  // ボタンを押した時に動く関数
+  function btn() {
+
+    // 試合数の計測
+    charenge = (charenge + 1);
+    // cauntが０以下にならないようにする処理
+    caunt = Math.max(0, caunt);
+
     // cauntの値を表示する要素を取得する
-    const Score = $("#Score").text;
+    const Score = $("#Score").text();
 
-    // cauntの初期値を表示する
-    Score.textContent = `勝った回数：${caunt}`;
-
-    // cauntの値が更新されるたびに、その値を表示する
-    function updateScore(newcaunt) {
-      Score.textContent = `勝った回数：${newcaunt}`;
+    if (caunt === 5) {
+      // alert("５回勝ちました!");
+      $("#result_yarujan").show();
+      $("#result_yarujan").fadeOut(1000);//やるじゃんの画像をふわっと表示
+      result_yarujan.src = 'images/yarujan.png'; // やるじゃんの画像
     }
-    setInterval(() => {
-      caunt;
-      updateScore(caunt); //勝ったカウントを更新させるアクション
-    }, 1000); // 1秒ごとに更新してみる
 
-    // ボタンを押した時に動く関数
-    function btn() {
+    if (caunt >= 0) {
+      $(".tuuchan").attr('src', 'images/tuuchan_01.png'); // つーちゃんの画像
+      $(".tuuchan").fadeIn(1000); //つーちゃんふわっと表示
+    }
 
-      // 試合数の計測
-      charenge = (charenge + 1);
-      // cauntが０以下にならないようにする処理
-      caunt = Math.max(0, caunt);
-
-
-      if (caunt === 2) {
-        alert("５回勝ちました!");
-      }
-
-      if (caunt === 2) {
-        result_yarujan.src = 'images/yarujan.png'; // 勝った時の画像のパス
-      }
-
-      if (caunt === 10) {
-        result_tuuchan.src = 'images/tuuchan01.png';//10回買った時の画像を表示
-      }
-      const min = 1;
-      const max = 3;
-
-      const randomnumber = Math.floor(Math.random() * (max - min + 1)) + min;
-
-      if (randomnumber === 1) {
-        $("#computer").text('ぐー');
-      }
-      if (randomnumber === 2) {
-        $("#computer").text('ちょき');
-      }
-      if (randomnumber === 3) {
-        $("#computer").text('パー');
-      }
-    } //ここまでbtn
+    if (caunt >= 5) {
+      $(".tuuchan").attr('src', 'images/tuuchan_02.png'); // つーちゃんの画像
+      $(".tuuchan").fadeIn(1000); //つーちゃんふわっと表示
+    }
+    if (caunt >= 10) {
+      $(".tuuchan").attr('src', 'images/tuuchan_03.png'); // つーちゃんの画像
+      $(".tuuchan").fadeIn(1000); //つーちゃんふわっと表示
+    }
+    if (caunt >= 15) {
+      $(".tuuchan").attr('src', 'images/tuuchan_04.png'); // つーちゃんの画像
+      $(".tuuchan").fadeIn(1000); //つーちゃんふわっと表示
+    }
+    if (caunt >= 20) {
+      $(".tuuchan").attr('src', 'images/tuuchan_05.png'); // つーちゃんの画像
+      $(".tuuchan").fadeIn(1000); //つーちゃんふわっと表示
+    }
+    if (caunt === 20) {
+      alert("20回勝ちました!");
+      $("#result_yarujan").show();
+      $("#result_yarujan").fadeOut(3000);//おめでとうの画像をふわっと表示
+      result_yarujan.src = 'images/omedetou.png'; // おめでとうの画像
+    }
 
 
-    // ぐー押したとき
-    $(`#guu`).on(`click`, function () {
-      let computer_1 = $("#computer").text();
 
-      if (computer_1 === "ぐー") {
-        // $("#computer").text('ぐー');
-        $("#result").text('あいこ');
-      }
-      else if (computer_1 === "ちょき") {
-        // $("#computer").text('ちょき');
-        $("#result").text('勝ち');
-        // 勝ったときに１＋されるアクション
-        caunt = (caunt + 1);
-        console.log("ちょき");
-      }
-      else if (computer_1 === "パー") {
-        // $("#computer").text('パー');
-        $("#result").text('負け');
-        //負けた時に−１されるアクション
-        caunt = (caunt - 1);
-        console.log("パー");
-      } btn();
-    });
-    // ちょき押したとき
-    $(`#cyoki`).on(`click`, function () {
-      let computer_1 = $("computer_1").text();
 
-      if (computer_1 === "ぐー") {
-        // $("#computer").text('ぐー');
-        $("#result").text('負け');
-        //負けた時に−１されるアクション
-        caunt = (caunt - 1);
-      }
-      else if (computer_1 === "ちょき") {
-        // $("#computer").text('ちょき');
-        $("#result").text('あいこ');
-      }
-      else if (computer_1 === "パー") {
-        // $("#computer").text('パー');
-        $("#result").text('勝ち');
-        // 勝ったときに１＋されるアクション
-        caunt = (caunt + 1);
-      } btn();
-    })
-    // パー押したとき
-    $(`#paa`).on(`click`, function () {
-      let computer_1 = $("computer_1").text();
 
-      if (computer_1 === "ぐー") {
-        // $("#computer").text('ぐー');
-        $("#result").text('勝ち');
-        // 勝ったときに１＋されるアクション
-        caunt = (caunt + 1);
-      }
-      else if (computer_1 === "ちょき") {
-        // $("#computer").text('ちょき');
-        $("#result").text('負け');
-        //負けた時に−１されるアクション
-        caunt = (caunt - 1);
+    const min = 1;
+    const max = 3;
 
-      }
-      else if (computer_1 === "パー") {
-        // $("#computer").text('パー');
-        $("#result").text('あいこ');
-      } btn();
+    const randomnumber = Math.floor(Math.random() * (max - min + 1)) + min;
 
-    })
-  </script>
+    if (randomnumber === 1) {
+      $("#computer").text('ぐー');
+    }
+    if (randomnumber === 2) {
+      $("#computer").text('ちょき');
+    }
+    if (randomnumber === 3) {
+      $("#computer").text('パー');
+    }
+  } //ここまでbtn
+
+
+  // ぐー押したとき
+  $(`#guu`).on(`click`, function () {
+    // コンピューターが出した手を入れる変数
+    let computer_1 = $("#computer").text();
+
+    if (computer_1 === "ぐー") {
+      // $("#computer").text('ぐー');
+      $("#result").text('あいこ');
+    }
+    else if (computer_1 === "ちょき") {
+      // $("#computer").text('ちょき');
+      $("#result").text('勝ち');
+      // 勝ったときに１＋されるアクション
+      caunt++;
+      console.log("ちょき");
+    }
+    else if (computer_1 === "パー") {
+      // $("#computer").text('パー');
+      $("#result").text('負け');
+      //負けた時に−１されるアクション
+      caunt--;
+      console.log(caunt);
+      console.log("パー");
+    } btn();
+  });
+  // ちょき押したとき
+  $(`#cyoki`).on(`click`, function () {
+    // コンピューターが出した手を入れる変数
+    let computer_1 = $("#computer").text();
+
+    if (computer_1 === "ぐー") {
+      // $("#computer").text('ぐー');
+      $("#result").text('負け');
+      //負けた時に−１されるアクション
+      caunt--;
+    }
+    else if (computer_1 === "ちょき") {
+      // $("#computer").text('ちょき');
+      $("#result").text('あいこ');
+    }
+    else if (computer_1 === "パー") {
+      // $("#computer").text('パー');
+      $("#result").text('勝ち');
+      // 勝ったときに１＋されるアクション
+      caunt++;
+    } btn();
+  });
+  // パー押したとき
+  $(`#paa`).on(`click`, function () {
+    // コンピューターが出した手を入れる変数
+    let computer_1 = $("#computer").text();
+
+    if (computer_1 === "ぐー") {
+      // $("#computer").text('ぐー');
+      $("#result").text('勝ち');
+      // 勝ったときに１＋されるアクション
+      caunt++;
+    }
+    else if (computer_1 === "ちょき") {
+      // $("#computer").text('ちょき');
+      $("#result").text('負け');
+      //負けた時に−１されるアクション
+      caunt--;
+
+    }
+    else if (computer_1 === "パー") {
+      // $("#computer").text('パー');
+      $("#result").text('あいこ');
+    } btn();
+
+  });
+
+
+</script>
 
 
 </body>
